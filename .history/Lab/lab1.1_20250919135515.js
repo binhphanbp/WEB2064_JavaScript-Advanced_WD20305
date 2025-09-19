@@ -3,6 +3,7 @@ const calculateArea = (width, length) => width * length;
 calculateArea(10, 20);
 
 // Tính tổng có kiểm tra số lượng đối số
+function sumExactlyThree(a, b, c) {}
 const sumExactlyThree = (a, b, c) => {
   if (arguments.length !== 3) {
     console.error('Cần truyền đúng 3 đối số');
