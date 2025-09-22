@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="parent">
+      <h3>Phần tử cha</h3>
+      <p>Đây là đoạn văn bản đầu tiên</p>
+      <ul>
+        <li>Mục danh sách 1</li>
+        <li>Mục danh sách 2</li>
+        <li>Mục danh sách 3</li>
+      </ul>
+      <div id="child">
+        <span>Phần tử con bên trong</span>
+      </div>
+    </div>
+    <script>
+      //Lấy phần tử theo id
+      const parentDiv = document.getElementById('parent');
+      console.log(parentDiv);
+      //Lấy tất cả con của cha
+      const elementChildren = parentDiv.children;
+      console.log(elementChildren);
+      //Lấy con đầu tiên của cha
+      const firstChild = parentDiv.firstElementChild;
+      console.log(firstChild);
+      //In ra con cuối cùng của cha
+      const lastChild = parentDiv.lastElementChild;
+      console.log(lastChild);
+      //Lấy anh của con đầu tiên
+      const brother0fFirstChild = firstChild.nextElementSibling;
+      console.log(brother0fFirstChild);
+      //Lấy em của con cuối cùng
+      const elderBrotherfLastChild = lastChild.previousElementSibling;
+      console.log(elderBrother0fLastChild);
+    </script>
+  </body>
+</html>
