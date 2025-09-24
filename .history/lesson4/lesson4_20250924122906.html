@@ -104,14 +104,7 @@
       }
 
       button.delete {
-        background-color: crimson;
-        border: none;
-        color: white;
-        padding: 5px 10px;
-        font-size: 14px;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: 0.3s;
+        background-color: darkred;
       }
 
       #ulTag li button:hover {
@@ -190,19 +183,12 @@
 
       // 7. Xoá phần tử bằng remove hoặc innerHTML = ''
       const btnDelAlt = document.createElement('button');
-      btnDelAlt.className = 'delete';
       btnDelAlt.innerText = 'Xoá tất cả';
       btnDelAlt.addEventListener('click', () => {
         ulTag.innerHTML = '';
-        // ulTag.remove();
         updateTaskCount();
       });
       h4Tag.after(btnDelAlt);
-
-      // 8. Sao chép phần tử
-      const cloneH1Tag = h1Tag.cloneNode(true);
-      document.body.prepend(cloneH1Tag);
-      cloneH1Tag.remove();
     </script>
   </body>
 </html>

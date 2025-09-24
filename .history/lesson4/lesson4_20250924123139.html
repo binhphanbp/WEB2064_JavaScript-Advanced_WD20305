@@ -201,8 +201,8 @@
 
       // 8. Sao chép phần tử
       const cloneH1Tag = h1Tag.cloneNode(true);
-      document.body.prepend(cloneH1Tag);
-      cloneH1Tag.remove();
+      cloneH1Tag.innerText = 'Hello world';
+      divTodo.appendChild(cloneH1Tag);
     </script>
   </body>
 </html>
