@@ -1,0 +1,10 @@
+{
+  "posts": [
+    { "id": "1", "title": "string" },
+    { "id": "2", "title": "some post" }
+  ],
+  "comments": [
+    { "id": "1", "text": "some text", "postId": "1" },
+    { "id": "2", "text": "some text", "postId": "1" }
+  ]
+}
