@@ -1,4 +1,0 @@
-//? Lấy phần tử theo ID -> getElementById
-const h1 = document.getElementById('title');
-console.log(h1);
-// h1.innerText = 'Hello thầy Hiện';
