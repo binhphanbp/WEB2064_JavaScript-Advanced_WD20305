@@ -2,6 +2,7 @@
 const API = 'http://localhost:3000/products';
 const vnd = (n) => Number(n || 0).toLocaleString('vi-VN');
 
+// ================== CLASSES ==================
 class Product {
   constructor({ id, name, price, image, category, hot, description }) {
     this.id = id;
@@ -96,7 +97,7 @@ async function initProductsPage() {
 
   try {
     await productList.fetch();
-    productList.render();
+    productList.render(); // hiển thị tất cả
   } catch (err) {
     console.error(err);
     elAllProducts.innerHTML = `<p style="color:#ff7979">Không thể tải dữ liệu sản phẩm.</p>`;

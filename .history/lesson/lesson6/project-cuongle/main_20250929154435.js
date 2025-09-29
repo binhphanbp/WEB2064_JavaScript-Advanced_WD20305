@@ -96,7 +96,7 @@ async function initProductsPage() {
 
   try {
     await productList.fetch();
-    productList.render();
+    productList.render(); // hiển thị tất cả
   } catch (err) {
     console.error(err);
     elAllProducts.innerHTML = `<p style="color:#ff7979">Không thể tải dữ liệu sản phẩm.</p>`;

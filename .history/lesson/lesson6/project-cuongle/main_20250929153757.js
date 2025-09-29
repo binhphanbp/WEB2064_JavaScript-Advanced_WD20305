@@ -2,6 +2,7 @@
 const API = 'http://localhost:3000/products';
 const vnd = (n) => Number(n || 0).toLocaleString('vi-VN');
 
+// ================== CLASSES ==================
 class Product {
   constructor({ id, name, price, image, category, hot, description }) {
     this.id = id;
@@ -52,6 +53,7 @@ class ProductList {
   }
 }
 
+// ================== TRANG INDEX ==================
 async function initIndexPage() {
   const elFeatured = document.getElementById('product-featured');
   const elPhones = document.getElementById('product-phones');
@@ -63,6 +65,7 @@ async function initIndexPage() {
   try {
     await productList.fetch();
 
+    // HOT products
     productList.container = elFeatured;
     productList.render({
       filterFn: (p) => p.hot === true,
@@ -70,12 +73,14 @@ async function initIndexPage() {
       showBadge: true,
     });
 
+    // Phones
     productList.container = elPhones;
     productList.render({
       filterFn: (p) => (p.category || '').trim().toLowerCase() === 'điện thoại',
       limit: 4,
     });
 
+    // Laptops
     productList.container = elLaptops;
     productList.render({
       filterFn: (p) => (p.category || '').trim().toLowerCase() === 'laptop',
@@ -88,6 +93,7 @@ async function initIndexPage() {
   }
 }
 
+// ================== TRANG PRODUCTS ==================
 async function initProductsPage() {
   const elAllProducts = document.getElementById('all-products');
   if (!elAllProducts) return;
@@ -96,7 +102,7 @@ async function initProductsPage() {
 
   try {
     await productList.fetch();
-    productList.render();
+    productList.render(); // hiển thị tất cả
   } catch (err) {
     console.error(err);
     elAllProducts.innerHTML = `<p style="color:#ff7979">Không thể tải dữ liệu sản phẩm.</p>`;
@@ -130,6 +136,7 @@ async function initDetailsPage() {
       </div>
     `;
 
+    // Render related products
     const resAll = await fetch(API);
     const all = await resAll.json();
     const related = all

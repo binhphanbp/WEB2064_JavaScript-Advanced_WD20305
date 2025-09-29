@@ -1,7 +1,3 @@
-// ================== CONFIG ==================
-const API = 'http://localhost:3000/products';
-const vnd = (n) => Number(n || 0).toLocaleString('vi-VN');
-
 class Product {
   constructor({ id, name, price, image, category, hot, description }) {
     this.id = id;
@@ -19,11 +15,15 @@ class Product {
         ${showBadge && this.hot ? `<span class="badge">HOT</span>` : ''}
         <img src="${this.image}" alt="${this.name}">
         <h3>${this.name}</h3>
-        <p class="price">₫${vnd(this.price)}</p>
+        <p class="price">₫${Product.vnd(this.price)}</p>
         ${this.category ? `<p class="category">${this.category}</p>` : ''}
-        <a class="btn" href="details.html?id=${this.id}">Xem chi tiết</a>
+        <button>Thêm vào giỏ</button>
       </article>
     `;
+  }
+
+  static vnd(n) {
+    return Number(n || 0).toLocaleString('vi-VN');
   }
 }
 
@@ -42,7 +42,6 @@ class ProductList {
   }
 
   render({ filterFn = () => true, limit, showBadge = false } = {}) {
-    if (!this.container) return;
     const list = this.products.filter(filterFn);
     const data = limit ? list.slice(0, limit) : list;
 
@@ -52,62 +51,66 @@ class ProductList {
   }
 }
 
-async function initIndexPage() {
-  const elFeatured = document.getElementById('product-featured');
-  const elPhones = document.getElementById('product-phones');
-  const elLaptops = document.getElementById('product-laptops');
-  if (!elFeatured || !elPhones || !elLaptops) return;
+const API = 'http://localhost:3000/products';
 
-  const productList = new ProductList(API, null);
+const elFeatured = document.getElementById('product-featured');
+const elPhones = document.getElementById('product-phones');
+const elLaptops = document.getElementById('product-laptops');
+const elAllProducts = document.getElementById('all-products');
 
+const productList = new ProductList(API, null);
+
+(async () => {
   try {
     await productList.fetch();
 
-    productList.container = elFeatured;
-    productList.render({
-      filterFn: (p) => p.hot === true,
-      limit: 4,
-      showBadge: true,
-    });
+    if (elFeatured) {
+      productList.container = elFeatured;
+      productList.render({
+        filterFn: (p) => p.hot === true,
+        limit: 4,
+        showBadge: true,
+      });
+    }
 
-    productList.container = elPhones;
-    productList.render({
-      filterFn: (p) => (p.category || '').trim().toLowerCase() === 'điện thoại',
-      limit: 4,
-    });
+    if (elPhones) {
+      productList.container = elPhones;
+      productList.render({
+        filterFn: (p) =>
+          (p.category || '').trim().toLowerCase() === 'điện thoại',
+        limit: 4,
+      });
+    }
 
-    productList.container = elLaptops;
-    productList.render({
-      filterFn: (p) => (p.category || '').trim().toLowerCase() === 'laptop',
-      limit: 4,
-    });
+    if (elLaptops) {
+      productList.container = elLaptops;
+      productList.render({
+        filterFn: (p) => (p.category || '').trim().toLowerCase() === 'laptop',
+        limit: 4,
+      });
+    }
+
+    if (elAllProducts) {
+      productList.container = elAllProducts;
+      productList.render();
+    }
   } catch (err) {
     console.error(err);
     const errorHTML = `<p style="color:#ff7979">Không thể tải dữ liệu. Kiểm tra JSON Server.</p>`;
-    elFeatured.innerHTML = elPhones.innerHTML = elLaptops.innerHTML = errorHTML;
+    if (elFeatured) elFeatured.innerHTML = errorHTML;
+    if (elPhones) elPhones.innerHTML = errorHTML;
+    if (elLaptops) elLaptops.innerHTML = errorHTML;
+    if (elAllProducts) elAllProducts.innerHTML = errorHTML;
   }
-}
+})();
 
-async function initProductsPage() {
-  const elAllProducts = document.getElementById('all-products');
-  if (!elAllProducts) return;
-
-  const productList = new ProductList(API, elAllProducts);
-
-  try {
-    await productList.fetch();
-    productList.render();
-  } catch (err) {
-    console.error(err);
-    elAllProducts.innerHTML = `<p style="color:#ff7979">Không thể tải dữ liệu sản phẩm.</p>`;
-  }
-}
-
+// ========== TRANG CHI TIẾT SẢN PHẨM ==========
 async function initDetailsPage() {
   const elDetail = document.getElementById('product-detail');
   const elRelated = document.getElementById('related-products');
-  if (!elDetail) return;
+  if (!elDetail) return; // Không phải trang details.html thì thoát
 
+  // Lấy id sản phẩm từ URL (?id=...)
   const params = new URLSearchParams(window.location.search);
   const productId = params.get('id');
 
@@ -116,6 +119,7 @@ async function initDetailsPage() {
     if (!res.ok) throw new Error('Không lấy được sản phẩm');
     const product = await res.json();
 
+    // Hiển thị chi tiết
     elDetail.innerHTML = `
       <div class="detail-grid">
         <div class="detail-image">
@@ -130,6 +134,7 @@ async function initDetailsPage() {
       </div>
     `;
 
+    // Lấy danh sách sản phẩm liên quan
     const resAll = await fetch(API);
     const all = await resAll.json();
     const related = all
@@ -137,7 +142,17 @@ async function initDetailsPage() {
       .slice(0, 4);
 
     elRelated.innerHTML = related
-      .map((p) => new Product(p).render(true))
+      .map(
+        (p) => `
+        <article class="product">
+          ${p.hot ? `<span class="badge">HOT</span>` : ''}
+          <img src="${p.image}" alt="${p.name}">
+          <h3>${p.name}</h3>
+          <p class="price">₫${vnd(p.price)}</p>
+          <a class="btn" href="details.html?id=${p.id}">Xem chi tiết</a>
+        </article>
+      `
+      )
       .join('');
   } catch (err) {
     console.error(err);
@@ -145,8 +160,9 @@ async function initDetailsPage() {
   }
 }
 
+// ========== CHẠY TRANG NÀO THÌ GỌI TRANG ĐÓ ==========
 document.addEventListener('DOMContentLoaded', () => {
-  initIndexPage();
-  initProductsPage();
-  initDetailsPage();
+  initIndexPage?.();
+  initProductsPage?.();
+  initDetailsPage?.();
 });
