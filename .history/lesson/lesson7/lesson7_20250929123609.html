@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const person = {
+        name: 'Bình Phan',
+        age: 20,
+
+        greet(name) {
+          console.log(`Hello ${this.name}, welcome to my site!`);
+        },
+      };
+
+      console.log(person);
+      console.log(person.name);
+      console.log(person.greet()); // Hello Bình Phan, welcome to my site!
+
+      // Class (Lớp đối tượng)
+      // + Constructor: Phương thức khởi tạo các thuộc tính
+      // + Properties (Thuộc tính)
+      // + Methods (Phương thức)
+
+      class Person {
+        constructor(name, age) {
+          this.name = name;
+          this.age = age;
+        }
+        greet() {
+          console.log(`Hello ${this.name}, welcome to my site!`);
+        }
+      }
+
+      const personNam = new Person('Bình Phan', 20);
+    </script>
+  </body>
+</html>
