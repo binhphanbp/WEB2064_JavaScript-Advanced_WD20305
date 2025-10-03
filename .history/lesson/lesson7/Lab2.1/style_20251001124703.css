@@ -1,0 +1,115 @@
+/* Header */
+header {
+  background: #2563eb; /* xanh lam primary */
+  padding: 15px 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.logo {
+  font-size: 26px;
+  font-weight: bold;
+  color: #fff; /* trắng nổi bật trên nền xanh */
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #fff; /* trắng thay vì đen */
+  font-weight: 600;
+  font-size: 15px;
+  transition: color 0.3s;
+}
+
+nav ul li a:hover,
+nav ul li a.active {
+  color: #facc15; /* vàng nhạt accent khi hover */
+}
+
+.search-box input {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  outline: none;
+  transition: all 0.3s;
+}
+
+.search-box input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 6px rgba(37, 99, 235, 0.3);
+}
+
+.cart {
+  font-weight: 600;
+  color: #fff; /* đổi sang trắng */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  transition: background 0.3s;
+}
+
+.cart:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Section title */
+h2 {
+  font-size: 22px;
+  margin: 30px 0 20px;
+  color: #111;
+  font-weight: 700;
+  border-left: 4px solid #2563eb; /* gạch xanh lam */
+  padding-left: 10px;
+}
+
+/* Nút Mua ngay */
+.buy-now {
+  background: #2563eb;
+  color: #fff;
+}
+
+.buy-now:hover {
+  background: #1e40af; /* xanh đậm hơn */
+  transform: translateY(-2px);
+}
+
+/* Nút Thêm giỏ hàng */
+.add-cart {
+  background: #f97316; /* cam đậm */
+  color: #fff;
+}
+
+.add-cart:hover {
+  background: #c2410c;
+  transform: translateY(-2px);
+}
+
+/* Footer */
+footer {
+  background: #111827; /* nền đen xám sang trọng */
+  color: #ddd;
+  padding: 40px 0 20px;
+  margin-top: 50px;
+}
+
+footer h4 {
+  color: #fff;
+}
+
+footer ul li a {
+  color: #bbb;
+}
+
+footer ul li a:hover {
+  color: #facc15; /* vàng nhạt highlight */
+}
+
+.copyright {
+  color: #aaa;
+}
