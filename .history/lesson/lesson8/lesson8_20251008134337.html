@@ -81,32 +81,7 @@
         speak() {
           return `${this.name} sủa gâu gâu`;
         }
-        run() {
-          return `${this.name} thuộc giống ${this.breed} đang chạy`;
-        }
       }
-
-      class Cat extends Animal {
-        constructor(name, color) {
-          super(name);
-          this.color = color;
-        }
-
-        speak() {
-          return `${this.name} kêu meo meo`;
-        }
-        climb() {
-          return `${this.name} màu ${this.color} đang leo cây`;
-        }
-      }
-
-      const dog1 = new Dog('Bobby', 'Husky');
-      console.log(dog1.speak()); // Bobby sủa gâu gâu
-      console.log(dog1.run()); // Bobby thuộc giống Husky đang chạy
-
-      const cat1 = new Cat('Tom', 'xám');
-      console.log(cat1.speak()); // Tom meo meo
-      console.log(cat1.climb()); // Tom màu xám đang leo cây
     </script>
   </body>
 </html>
