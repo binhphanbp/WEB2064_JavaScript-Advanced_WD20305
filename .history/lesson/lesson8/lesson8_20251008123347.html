@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // Sử dụng class trong class khác
+      class User {
+        constructor(name, email) {
+          this.name = name;
+          this.email = email;
+        }
+      }
+      class Profile {
+        constructor(user, job) {
+          this.user = user;
+          this.job = job;
+        }
+        display() {
+          return `${this.user.name} - ${this.user.email} - ${this.job}`;
+        }
+      }
+
+      const user1 = new User('Tèo', 'teo@gmail.com');
+      const profile1 = new Profile(user1, 'Developer');
+    </script>
+  </body>
+</html>

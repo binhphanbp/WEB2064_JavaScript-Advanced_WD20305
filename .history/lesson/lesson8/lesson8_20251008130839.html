@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // Sử dụng class trong class khác
+      class User {
+        constructor(name, email) {
+          this.name = name;
+          this.email = email;
+        }
+      }
+      class Profile {
+        constructor(user, job) {
+          this.user = user;
+          this.job = job;
+        }
+        display() {
+          return `${this.user.name} - ${this.user.email} - ${this.job}`;
+        }
+      }
+
+      const user1 = new User('Tèo', 'teo@gmail.com');
+      const profile1 = new Profile(user1, 'Developer');
+
+      // setter, getter
+      class Product {
+        constructor(name, price) {
+          this._name = name;
+          this._price = price;
+        }
+
+        // Sử dụng getter để lấy thông tin ra theo mẫu
+        get formattedPrice() {
+          return `$${this.price.toFixed(2)}`;
+        }
+        set discount(percent) {
+          this.price = this.price * (1 - percent / 100);
+        }
+      }
+      const product1 = new Product('Iphone', 1000);
+      console.log(product1.formattedPrice); // $1000.00
+      product1.discount = 10;
+    </script>
+  </body>
+</html>
